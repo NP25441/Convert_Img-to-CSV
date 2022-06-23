@@ -16,12 +16,12 @@ import argparse
 import numpy as np
 import csv
 import os
+#ข้อมูลที่ใช้จะเชื่อมต่อกับ Colab
 from google.colab import drive
 drive.mount('/content/drive')
-
 from PIL import Image
-
 import sys
+
 
 def createFileList(myDir, format='.jpg'):
   fileList = []
@@ -33,8 +33,8 @@ def createFileList(myDir, format='.jpg'):
               fileList.append(fullName)
   return fileList
 
-# load the original image
-myFileList = createFileList('/content/drive/Shareddrives/Clarity_V-Car/Dataset/')
+# โหลดข้อมูลรูปภาพ
+myFileList = createFileList('/content/drive/Shareddrives/Clarity_V-Car/Dataset/') # ตำแหน่งของข้อมูล
 
 for file in myFileList:
     print(file)
