@@ -16,7 +16,6 @@ import argparse
 import numpy as np
 import csv
 import os
-#ข้อมูลที่ใช้จะเชื่อมต่อกับ Colab
 from google.colab import drive
 drive.mount('/content/drive')
 from PIL import Image
@@ -33,28 +32,29 @@ def createFileList(myDir, format='.jpg'):
               fileList.append(fullName)
   return fileList
 
-# โหลดข้อมูลรูปภาพ
-myFileList = createFileList('/content/drive/Shareddrives/Clarity_V-Car/Dataset/') # ตำแหน่งของข้อมูล
+# load the original image
+myFileList = createFileList('/content/drive/Shareddrives/Clarity_V-Car/Dataset/')
 
 for file in myFileList:
     print(file)
     img_file = Image.open(file)
-    # img_file.show()
+    
 
     # get original image parameters...
     width, height = img_file.size
     format = img_file.format
     mode = img_file.mode
 
-    # Make image Greyscale
-    img_grey = img_file.convert('L')
-    #img_grey.save('result.png')
-    #img_grey.show()
+    # Make image format RGB
+    # P mode is RGB and L mode is GreyScale
+    img_rgb = img_file.convert('P')
+    
+    
 
-    # Save Greyscale values
-    value = np.asarray(img_grey.getdata(), dtype=np.int).reshape((img_grey.size[1], img_grey.size[0]))
+    # Save RGB values
+    value = np.asarray(img_rgb.getdata(), dtype=np.int).reshape((img_rgb.size[1], img_rgb.size[0]))
     value = value.flatten()
     print(value)
-    with open("img_pixels.csv", 'a') as f:
+    with open("/content/drive/Shareddrives/Clarity_V-Car/img_pixels.csv", 'a') as f:
         writer = csv.writer(f)
         writer.writerow(value)
